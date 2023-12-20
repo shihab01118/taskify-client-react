@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import logo from "../../../assets/planning.png";
+import logo from "../../../assets/images/planning.png";
 
 const Navbar = () => {
     window.addEventListener("scroll", () => {
