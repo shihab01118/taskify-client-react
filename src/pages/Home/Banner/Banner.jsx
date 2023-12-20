@@ -16,11 +16,11 @@ const Banner = () => {
             Intuitive Task Management
           </p>
           <div>
-          <Link to="/login">
-            <button className="btn btn-primary">
-              Let{"'"}s Explore <FaArrowTrendUp size={18} />
-            </button>
-          </Link>
+            <Link to="/login">
+              <button className="btn btn-primary">
+                Let{"'"}s Explore <FaArrowTrendUp size={18} />
+              </button>
+            </Link>
           </div>
         </div>
         <div className="md:w-3/5 lg:w-2/5">
