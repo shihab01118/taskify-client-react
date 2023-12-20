@@ -7,16 +7,47 @@ import { TbMailFilled } from "react-icons/tb";
 import login_image from "../../assets/images/signin.jpg";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
+  const { signInWithGoogle, signIn } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignIn = (e) => {
+  // sign in user
+  const handleSignIn = async (e) => {
     e.preventDefault();
+
+    try {
+      const result = await signIn(email, password);
+
+      // navigate user after successfull sign in
+      if (result.user) {
+        navigate(from, { replace: true });
+        toast.success("Login Successful!");
+      }
+    } catch (error) {
+      toast.error("Invalid Email/Password!");
+    }
   };
 
-  const handleGoogleSignIn = () => {};
+  // user registration with google
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signInWithGoogle();
+
+      // navigate user after successfull sign in
+      if (result.user) {
+        navigate(from, { replace: true });
+        toast.success("Login Successful!");
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
 
   return (
     <>
