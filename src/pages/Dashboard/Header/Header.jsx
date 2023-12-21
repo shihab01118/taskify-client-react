@@ -47,6 +47,7 @@ const Header = () => {
       description: data?.description,
       dueDate,
       priority,
+      status: "todo"
     };
 
     const res = await axiosSecure.post("/tasks", task);
