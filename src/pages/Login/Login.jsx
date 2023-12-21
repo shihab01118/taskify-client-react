@@ -13,7 +13,7 @@ const Login = () => {
   const { signInWithGoogle, signIn } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location?.state?.from?.pathname || "/";
+  const from = location?.state?.from?.pathname || "/dashboard";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -23,12 +23,11 @@ const Login = () => {
 
     try {
       const result = await signIn(email, password);
+      console.log(result.user);
 
       // navigate user after successfull sign in
-      if (result.user) {
         navigate(from, { replace: true });
         toast.success("Login Successful!");
-      }
     } catch (error) {
       toast.error("Invalid Email/Password!");
     }
