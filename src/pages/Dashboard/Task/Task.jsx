@@ -4,6 +4,7 @@ import { BsCalendar4Event } from "react-icons/bs";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useGetAllTasks from "../../../hooks/useGetAllTasks";
+import { useDrag } from "react-dnd";
 
 const Task = ({ task }) => {
   const { refetch } = useGetAllTasks();
@@ -15,6 +16,14 @@ const Task = ({ task }) => {
   const remainingTime = formatDistance(new Date(dueDate), new Date(), {
     addSuffix: true,
   });
+
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "task",
+    item: { id: task?._id },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
 
   let priorityBg = "";
 
@@ -56,7 +65,12 @@ const Task = ({ task }) => {
   };
 
   return (
-    <div className="py-4 px-3 hover:shadow-lg hover:bg-gray-100 transition-all border-b border-gray-300 relative">
+    <div
+      ref={drag}
+      className={`py-4 px-3 hover:shadow-lg hover:bg-gray-100 transition-all border-b border-gray-300 relative ${
+        isDragging ? "opacity-20 cursor-grab" : "opacity-100 cursor-pointer"
+      }`}
+    >
       <p
         className={`px-[6px] py-[2px] text-xs text-white w-fit rounded-full capitalize ${priorityBg}`}
       >

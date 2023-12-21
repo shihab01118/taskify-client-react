@@ -3,8 +3,30 @@ import { FaList, FaArrowTrendUp } from "react-icons/fa6";
 import { BiTask } from "react-icons/bi";
 import Task from "../Task/Task";
 import "./Column.css";
+import { useDrop } from "react-dnd";
+import useGetAllTasks from "../../../hooks/useGetAllTasks";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const Column = ({ status, todos, inProgress, completed }) => {
+  const axiosSecure = useAxiosSecure();
+  const { refetch } = useGetAllTasks();
+  const addItemToSection = async (id) => {
+    const res = await axiosSecure.patch(`/tasks/${id}`, { status: status });
+    if (res?.data?.modifiedCount > 0) {
+      refetch();
+      toast.success(`Status updated to: ${status}`);
+    }
+  };
+
+  const [{ isOver }, drop] = useDrop(() => ({
+    accept: "task",
+    drop: (item) => addItemToSection(item.id),
+    collect: (monitor) => ({
+      isOver: !!monitor.isOver(),
+    }),
+  }));
+
   let title = "";
   let titleColor = "";
   let borderColor = "";
@@ -43,11 +65,16 @@ const Column = ({ status, todos, inProgress, completed }) => {
       >
         {Icon}
         {title}
-        <span>({tasksToMap.length})</span>
+        <span>({tasksToMap?.length})</span>
       </h2>
-      <div className="border border-gray-300 rounded-md h-[65vh] overflow-y-auto">
-        {tasksToMap.length > 0 ? (
-          tasksToMap.map((task) => <Task key={task?._id} task={task} />)
+      <div
+        ref={drop}
+        className={`border border-gray-300 rounded-md h-[65vh] overflow-y-auto ${
+          isOver ? "bg-slate-200" : ""
+        }`}
+      >
+        {tasksToMap?.length > 0 ? (
+          tasksToMap?.map((task) => <Task key={task?._id} task={task} />)
         ) : (
           <div className="flex justify-center items-center h-full">
             <p className="text-[#757575] font-medium">Empty List!</p>
