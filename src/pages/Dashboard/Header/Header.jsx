@@ -22,18 +22,21 @@ const customStyles = {
 
 const Header = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
+  const [dueDate, setDueDate] = useState(new Date());
+  const [priority, setPriority] = useState("");
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
   const {
-    // register,
+    register,
     handleSubmit,
-    // formState: { errors },
+    formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log(data, dueDate, priority);
+  };
 
   return (
     <div className="border-gray-300 border-b shadow-md py-4 bg-base-200">
@@ -41,14 +44,21 @@ const Header = () => {
         <h2 className="text-title text-lg md:text-xl lg:text-2xl font-medium flex items-center gap-2">
           <FiEdit className="text-primary" /> Manage Your Tasks
         </h2>
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-4 md:gap-8">
           <button
             onClick={openModal}
-            className="btn btn-primary rounded-full font-medium"
+            className="btn btn-primary rounded-full font-medium hidden md:flex"
           >
             <FiPlus size={22} /> New Task
           </button>
+          <button
+            onClick={openModal}
+            className="btn btn-sm btn-primary rounded-full font-medium md:hidden"
+          >
+            <FiPlus size={18} />
+          </button>
           <Modal
+            ariaHideApp={false}
             isOpen={modalIsOpen}
             onRequestClose={closeModal}
             style={customStyles}
@@ -72,7 +82,13 @@ const Header = () => {
                   type="text"
                   placeholder="Type here..."
                   className="p-2 focus:outline-none border hover:border hover:border-primary focus:border focus:border-primary rounded"
+                  {...register("title", { required: true })}
                 />
+                {errors.title && (
+                  <span className="text-orange-600 mt-1">
+                    This field is required
+                  </span>
+                )}
               </div>
               <div className="form-control mt-4">
                 <label className="mb-2" htmlFor="description">
@@ -83,7 +99,13 @@ const Header = () => {
                   type="text"
                   placeholder="Type here..."
                   className="p-2 focus:outline-none border hover:border hover:border-primary focus:border focus:border-primary rounded"
+                  {...register("description", { required: true })}
                 />
+                {errors.description && (
+                  <span className="text-orange-600 mt-1">
+                    This field is required
+                  </span>
+                )}
               </div>
               <div className="mt-4 flex justify-between">
                 <div className="flex flex-col">
@@ -92,15 +114,21 @@ const Header = () => {
                   </label>
                   <DatePicker
                     className="focus:outline-none border focus:border-primary hover:border-primary rounded p-2 cursor-pointer"
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
+                    selected={dueDate}
+                    onChange={(date) => setDueDate(date)}
                   />
                 </div>
                 <div className="w-[150px]">
                   <label>
                     <span className="font-medium">*Priority</span>
                   </label>
-                  <select className="p-2 border hover:border-primary focus:border-primary w-full mt-2 rounded focus:outline-none">
+                  <select
+                    value={priority}
+                    onChange={(e) => setPriority(e.target.value)}
+                    className="p-2 border hover:border-primary focus:border-primary w-full mt-2 rounded focus:outline-none"
+                    required
+                  >
+                    <option value="" disabled>Select</option>
                     <option value="high">High</option>
                     <option value="moderate">Moderate</option>
                     <option value="low">Low</option>
