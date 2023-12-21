@@ -6,6 +6,9 @@ import { useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
+import useAuth from "../../../hooks/useAuth";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import toast from "react-hot-toast";
 
 const customStyles = {
   content: {
@@ -21,6 +24,8 @@ const customStyles = {
 };
 
 const Header = () => {
+  const { user } = useAuth();
+  const axiosSecure = useAxiosSecure();
   const [modalIsOpen, setIsOpen] = useState(false);
   const [dueDate, setDueDate] = useState(new Date());
   const [priority, setPriority] = useState("");
@@ -32,10 +37,24 @@ const Header = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data, dueDate, priority);
+  const onSubmit = async (data) => {
+    const task = {
+      requester_email: user?.email,
+      title: data?.title,
+      description: data?.description,
+      dueDate,
+      priority,
+    };
+
+    const res = await axiosSecure.post("/tasks", task);
+    if (res?.data?.insertedId) {
+      toast.success("Task Added!");
+      reset();
+      closeModal();
+    }
   };
 
   return (
@@ -128,7 +147,9 @@ const Header = () => {
                     className="p-2 border hover:border-primary focus:border-primary w-full mt-2 rounded focus:outline-none"
                     required
                   >
-                    <option value="" disabled>Select</option>
+                    <option value="" disabled>
+                      Select
+                    </option>
                     <option value="high">High</option>
                     <option value="moderate">Moderate</option>
                     <option value="low">Low</option>
