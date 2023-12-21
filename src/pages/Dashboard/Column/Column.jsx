@@ -4,7 +4,7 @@ import { BiTask } from "react-icons/bi";
 import Task from "../Task/Task";
 import "./Column.css";
 
-const Column = ({ status, tasks, setTasks, todos, inProgress, completed }) => {
+const Column = ({ status, todos, inProgress, completed }) => {
   let title = "";
   let titleColor = "";
   let borderColor = "";
@@ -47,14 +47,7 @@ const Column = ({ status, tasks, setTasks, todos, inProgress, completed }) => {
       </h2>
       <div className="border border-gray-300 rounded-md h-[65vh] overflow-y-auto">
         {tasksToMap.length > 0 ? (
-          tasksToMap.map((task) => (
-            <Task
-              key={task?._id}
-              task={task}
-              tasks={tasks}
-              setTasks={setTasks}
-            />
-          ))
+          tasksToMap.map((task) => <Task key={task?._id} task={task} />)
         ) : (
           <div className="flex justify-center items-center h-full">
             <p className="text-[#757575] font-medium">Empty List!</p>
@@ -67,11 +60,9 @@ const Column = ({ status, tasks, setTasks, todos, inProgress, completed }) => {
 
 Column.propTypes = {
   status: PropTypes.string,
-  tasks: PropTypes.array,
   todos: PropTypes.array,
   inProgress: PropTypes.array,
   completed: PropTypes.array,
-  setTasks: PropTypes.func,
 };
 
 export default Column;

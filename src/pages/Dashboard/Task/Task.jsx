@@ -3,16 +3,12 @@ import { formatDistance, format } from "date-fns";
 import { BsCalendar4Event } from "react-icons/bs";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useGetAllTasks from "../../../hooks/useGetAllTasks";
 
-const Task = ({ task, tasks, setTasks }) => {
+const Task = ({ task }) => {
+  const { refetch } = useGetAllTasks();
   const axiosSecure = useAxiosSecure();
-  const {
-    _id,
-    title,
-    description,
-    dueDate,
-    priority,
-  } = task || {};
+  const { _id, title, description, dueDate, priority } = task || {};
 
   const date = format(new Date(dueDate), "MMM, dd");
 
@@ -47,6 +43,7 @@ const Task = ({ task, tasks, setTasks }) => {
       if (result.isConfirmed) {
         axiosSecure.delete(`/tasks/${_id}`).then((res) => {
           if (res?.data?.deletedCount > 0) {
+            refetch();
             Swal.fire({
               title: "Deleted!",
               text: "Your file has been deleted.",
@@ -99,8 +96,6 @@ const Task = ({ task, tasks, setTasks }) => {
 
 Task.propTypes = {
   task: PropTypes.object,
-  tasks: PropTypes.array,
-  setTasks: PropTypes.func,
 };
 
 export default Task;

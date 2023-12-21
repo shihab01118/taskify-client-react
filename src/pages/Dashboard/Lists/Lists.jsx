@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import Column from "../Column/Column";
 
-const Lists = ({ tasks, setTasks }) => {
+const Lists = ({ tasks }) => {
   const [todos, setTodos] = useState([]);
   const [inProgress, setInProgress] = useState([]);
   const [completed, setCompleted] = useState([]);
@@ -26,7 +26,6 @@ const Lists = ({ tasks, setTasks }) => {
           key={index}
           status={status}
           tasks={tasks}
-          setTasks={setTasks}
           todos={todos}
           inProgress={inProgress}
           completed={completed}
@@ -38,7 +37,6 @@ const Lists = ({ tasks, setTasks }) => {
 
 Lists.propTypes = {
   tasks: PropTypes.array,
-  setTasks: PropTypes.func,
 };
 
 export default Lists;

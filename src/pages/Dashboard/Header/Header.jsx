@@ -9,6 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import useGetAllTasks from "../../../hooks/useGetAllTasks";
 
 const customStyles = {
   content: {
@@ -24,6 +25,7 @@ const customStyles = {
 };
 
 const Header = () => {
+  const {refetch} = useGetAllTasks();
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [modalIsOpen, setIsOpen] = useState(false);
@@ -52,6 +54,7 @@ const Header = () => {
 
     const res = await axiosSecure.post("/tasks", task);
     if (res?.data?.insertedId) {
+      refetch();
       toast.success("Task Added!");
       reset();
       closeModal();
