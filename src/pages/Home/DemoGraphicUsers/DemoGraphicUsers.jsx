@@ -2,6 +2,7 @@ import Chart from "react-apexcharts";
 import { Pagination, Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
+
 import "swiper/css";
 import "swiper/css/pagination";
 
