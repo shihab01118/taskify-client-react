@@ -2,29 +2,44 @@ import { NavLink } from "react-router-dom";
 import logo from "../../../assets/images/planning.png";
 
 const Navbar = () => {
-    window.addEventListener("scroll", () => {
-        const navbar = document.getElementById("NavBar");
-        if (window.scrollY > 0) {
-          navbar.classList.add("bg-gray-700");
-          navbar.classList.remove("bg-transparent");
-        } else {
-          navbar.classList.remove("bg-gray-700");
-          navbar.classList.add("bg-transparent");
-        }
-      });
+  window.addEventListener("scroll", () => {
+    const navbar = document.getElementById("NavBar");
+    if (window.scrollY > 0) {
+      navbar.classList.add("bg-white");
+      navbar.classList.remove("bg-transparent");
+    } else {
+      navbar.classList.remove("bg-white");
+      navbar.classList.add("bg-transparent");
+    }
+  });
 
   const navLinks = (
     <>
-      <NavLink to="/about">About</NavLink>
-      <NavLink to="/feature">Feature</NavLink>
-      <NavLink to="/contact">Contact</NavLink>
+      <NavLink
+        to="/"
+        className={({ isActive }) => (isActive ? "text-primary" : "")}
+      >
+        Home
+      </NavLink>
+      <NavLink
+        to="/about"
+        className={({ isActive }) => (isActive ? "text-primary" : "")}
+      >
+        About
+      </NavLink>
+      <NavLink
+        to="/features"
+        className={({ isActive }) => (isActive ? "text-primary" : "")}
+      >
+        Features
+      </NavLink>
     </>
   );
 
   return (
     <div
       id="NavBar"
-      className="w-full bg-transparent fixed top-0 left-0 z-50 py-4 transition-all bg-opacity-60"
+      className="w-full bg-transparent fixed top-0 left-0 z-50 py-4 transition-all bg-opacity-80"
     >
       <div className="max-w-6xl mx-5 md:mx-10 lg:mx-auto flex justify-between items-center">
         <div className="flex items-center gap-3">
