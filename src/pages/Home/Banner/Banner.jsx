@@ -7,8 +7,11 @@ import AOS from "aos";
 
 import "aos/dist/aos.css";
 import { useEffect } from "react";
+import useAuth from "../../../hooks/useAuth";
 
 const Banner = () => {
+  const { user } = useAuth();
+
   useEffect(() => {
     AOS.init({
       duration: 1000,
@@ -28,7 +31,7 @@ const Banner = () => {
             Intuitive Task Management
           </p>
           <div>
-            <Link to="/login">
+            <Link to={user && user?.email ? "/dashboard" : "/login"}>
               <button className="btn btn-primary">
                 Let{"'"}s Explore <FaArrowTrendUp size={18} />
               </button>
@@ -39,7 +42,7 @@ const Banner = () => {
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{
-            duration: .8,
+            duration: 0.8,
           }}
           className="md:w-3/5 lg:w-2/5"
         >

@@ -69,7 +69,7 @@ const Column = ({ status, todos, inProgress, completed }) => {
       </h2>
       <div
         ref={drop}
-        className={`border border-gray-300 rounded-md h-[65vh] overflow-y-auto ${
+        className={`border border-gray-300 rounded-md h-[calc(100vh-220px)] overflow-y-auto ${
           isOver ? "bg-slate-200" : ""
         }`}
       >
