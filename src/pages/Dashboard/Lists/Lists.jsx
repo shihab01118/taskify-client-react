@@ -20,7 +20,7 @@ const Lists = ({ tasks }) => {
   const statuses = ["todo", "inProgress", "completed"];
 
   return (
-    <div className="max-w-6xl mx-8 md:mx-16 lg:mx-auto my-10 grid md:grid-cols-2  lg:grid-cols-3 gap-10 justify-between">
+    <div className="max-w-6xl mx-8 md:mx-16 lg:mx-auto my-10 grid grid-cols-1 md:grid-cols-2  lg:grid-cols-3 gap-10 justify-between">
       {statuses?.map((status, index) => (
         <Column
           key={index}
