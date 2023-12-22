@@ -2,12 +2,12 @@ import Lottie from "lottie-react";
 import bannerAnimation from "../../../assets/animations/banner-animation.json";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 import { motion } from "framer-motion";
 import AOS from "aos";
+import { useEffect } from "react";
 
 import "aos/dist/aos.css";
-import { useEffect } from "react";
-import useAuth from "../../../hooks/useAuth";
 
 const Banner = () => {
   const { user } = useAuth();

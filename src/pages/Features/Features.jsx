@@ -1,13 +1,31 @@
+import AOS from "aos";
+import { useEffect } from "react";
+
+import "aos/dist/aos.css";
+
 const Features = () => {
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      easing: "ease-in-out",
+    });
+  }, []);
+
   return (
     <div className="max-w-6xl mx-8 md:mx-16 lg:mx-auto pt-[83px]">
-      <h1 className="text-2xl md:text-3xl font-semibold mb-6 text-center">
+      <h1
+        data-aos="fade-up"
+        className="text-2xl md:text-3xl font-semibold mb-6 text-center"
+      >
         Key Features
       </h1>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {/* Feature 1 */}
-        <div className="bg-white rounded-lg shadow-md p-5 hover:bg-gray-200 transition">
+        <div
+          data-aos="fade-up"
+          className="bg-white rounded-lg shadow-md p-5 hover:bg-gray-200 transition"
+        >
           <h2 className="text-xl font-medium mb-4">
             Efficient Task Organization
           </h2>
@@ -19,10 +37,11 @@ const Features = () => {
         </div>
 
         {/* Feature 2 */}
-        <div className="bg-white rounded-lg shadow-md p-5 hover:bg-gray-200 transition">
-          <h2 className="text-xl font-medium mb-4">
-            Personal Task Management
-          </h2>
+        <div
+          data-aos="fade-up"
+          className="bg-white rounded-lg shadow-md p-5 hover:bg-gray-200 transition"
+        >
+          <h2 className="text-xl font-medium mb-4">Personal Task Management</h2>
           <p className="text-gray-700 text-sm md:text-base">
             Simplify your task management process. Organize your to-dos, set
             deadlines, and prioritize tasks according to your individual goals.
@@ -30,7 +49,10 @@ const Features = () => {
         </div>
 
         {/* Feature 3 */}
-        <div className="bg-white rounded-lg shadow-md p-5 hover:bg-gray-200 transition">
+        <div
+          data-aos="fade-up"
+          className="bg-white rounded-lg shadow-md p-5 hover:bg-gray-200 transition"
+        >
           <h2 className="text-xl font-medium mb-4">
             Customization & Flexibility
           </h2>
@@ -41,7 +63,10 @@ const Features = () => {
           </p>
         </div>
       </div>
-      <div className="text-center my-10 md:text-lg font-medium text-[#757575]">
+      <div
+        data-aos="fade-up"
+        className="text-center my-10 md:text-lg font-medium text-[#757575]"
+      >
         <p>More Features Coming Soon.</p>
         <p className="text-[#FF7C17]">Stay Tuned!</p>
       </div>
