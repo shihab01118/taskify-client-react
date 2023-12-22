@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import logo from "../../../assets/images/planning.png";
+import MenuDropdown from "../MenuDropdown/MenuDropdown";
 
 const Navbar = () => {
   window.addEventListener("scroll", () => {
@@ -51,7 +52,9 @@ const Navbar = () => {
         <div className="hidden md:block">
           <ul className="flex gap-8 font-medium cursor-pointer">{navLinks}</ul>
         </div>
-        <div className="md:hidden">{/* <Dropdown /> */}</div>
+        <div className="md:hidden">
+          <MenuDropdown />
+        </div>
       </div>
     </div>
   );
