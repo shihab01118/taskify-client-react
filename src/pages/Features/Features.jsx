@@ -1,5 +1,6 @@
 import AOS from "aos";
 import { useEffect } from "react";
+import {Helmet} from "react-helmet-async"
 
 import "aos/dist/aos.css";
 
@@ -12,6 +13,10 @@ const Features = () => {
   }, []);
 
   return (
+    <>
+    <Helmet>
+        <title>Taskify - Features</title>
+    </Helmet>
     <div className="max-w-6xl mx-8 md:mx-16 lg:mx-auto pt-[83px]">
       <h1
         data-aos="fade-up"
@@ -71,6 +76,7 @@ const Features = () => {
         <p className="text-[#FF7C17]">Stay Tuned!</p>
       </div>
     </div>
+    </>
   );
 };
 

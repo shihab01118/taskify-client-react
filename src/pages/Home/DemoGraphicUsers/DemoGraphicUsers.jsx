@@ -1,13 +1,8 @@
 import Chart from "react-apexcharts";
-import { Pagination, Autoplay } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
 import AOS from "aos";
 import { useEffect } from "react";
 
 import "aos/dist/aos.css";
-
-import "swiper/css";
-import "swiper/css/pagination";
 
 const DemoGraphicUsers = () => {
   useEffect(() => {
@@ -82,10 +77,7 @@ const DemoGraphicUsers = () => {
       >
         Who Benefits from Our Platform?
       </h2>
-      <div
-        data-aos="fade-in"
-        className="mb-8 w-full md:w-1/2 mx-auto"
-      >
+      <div data-aos="fade-in" className="mb-8 w-full md:w-1/2 mx-auto">
         <Chart
           options={chartData.options}
           series={chartData.series}
@@ -93,36 +85,17 @@ const DemoGraphicUsers = () => {
           width="100%"
         />
       </div>
-      <div data-aos="fade-up" className="swiper-container">
-        <Swiper
-          modules={[Pagination, Autoplay]}
-          slidesPerView={3}
-          spaceBetween={30}
-          pagination={{ clickable: true }}
-          autoplay
-          breakpoints={{
-            1024: {
-              slidesPerView: 3,
-            },
-            768: {
-              slidesPerView: 2, // Show 2 items on tablets
-            },
-            480: {
-              slidesPerView: 1, // Show 1 item on mobile
-            },
-          }}
-        >
-          {demographicItems.map((item, index) => (
-            <SwiperSlide key={index}>
-              <div className="p-4 bg-gray-200 rounded-md shadow-md">
-                <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
-                <p className="text-[#757575] text-sm font-medium">
-                  {item.description}
-                </p>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {demographicItems.map((item, index) => (
+          <div data-aos="fade-up" key={index}>
+            <div className="p-4 bg-gray-200 rounded-md shadow-md">
+              <h3 className="text-lg font-semibold mb-2">{item.title}</h3>
+              <p className="text-[#757575] text-sm font-medium">
+                {item.description}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

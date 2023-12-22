@@ -59,7 +59,7 @@ const Column = ({ status, todos, inProgress, completed }) => {
   }
 
   return (
-    <div>
+    <div className="w-full">
       <h2
         className={`capitalize font-medium px-3 py-2 border border-t-4 border-gray-300 rounded-md flex items-center gap-[6px] mb-3 ${titleColor} ${borderColor}`}
       >
